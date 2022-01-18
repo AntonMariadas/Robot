@@ -1,11 +1,11 @@
 const url = require('url');
+require('dotenv').config();
 const axios = require('axios');
 const dataUtils = require('./dataUtils');
 
-
 const authUrl = "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=%2Fpartenaire";
-const clientId = "PAR_myjobhandler_bd7ef31ee3afacc5ab2f20e72b9dd6707a29f9c8c673a7017c008e5fe54f78c5";
-const secretKey = "0bab35b449fdddb1bc2d88e88ada57a1c33cfade51ac94d2cb8d3b6f0a7f7738";
+const clientId = process.env.CLIENT_ID;
+const secretKey = process.env.SECRET_KEY;
 let token = null;
 
 
