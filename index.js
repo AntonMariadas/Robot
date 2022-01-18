@@ -1,11 +1,10 @@
-// const express = require('express');
 require('./config/dbConfig');
 const data = require('./api/data');
+const express = require('express');
 
-// const app = express();
-// const port = 8282;
+const app = express();
+const port = 8282;
 
 data.refreshCompaniesData();
 
-// server express a supprimer avant déploiment
-// app.listen(port, () => console.log(`listening on http//:localhost:${port}`));
+app.listen(port, () => console.log(`listening on http//:localhost:${port}`));

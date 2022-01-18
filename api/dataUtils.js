@@ -25,21 +25,26 @@ const romCodes = {
     romCodeRedaction: "H1207"
 };
 
-function GetCompaniesData(romCode, token) {
-    axios.get(
-        `${companiesApiUrl}?rome_codes=${romCode}&departments=75,77,78,91,92,93,94,95`,
-        { headers: { "Authorization": `Bearer ${token}` } })
-        .then(res => {
-            let companies = res.data.companies;
-            Company.deleteMany({ matched_rome_code: romCode })
-                .then(() => console.log(`${romCode} : Data deleted`));
-            Company.insertMany(companies)
-                .then(() => console.log(`${romCode} : Data inserted`));
-        })
-        .catch(err => console.log(err));
-}
+const getCompaniesData = async (romCode, token) => {
+    try {
+        const res = await axios.get(`${companiesApiUrl}?rome_codes=${romCode}&departments=75,77,78,91,92,93,94,95`,
+            { headers: { "Authorization": `Bearer ${token}` } });
+        let companies = res.data.companies;
+
+        Company.deleteMany({ matched_rome_code: romCode })
+            .then(() => console.log(`${romCode} : Data deleted`))
+            .catch(err => console.log("Error deleting datas", err));
+
+        Company.insertMany(companies)
+            .then(() => console.log(`${romCode} : Data inserted`))
+            .catch(err => console.log("Error inserting datas", err));
+    } catch (error) {
+        console.log("Error getting companies datas", error);
+    }
+};
+
 
 module.exports = {
     romCodes,
-    GetCompaniesData
+    getCompaniesData
 };
