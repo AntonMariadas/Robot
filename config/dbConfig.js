@@ -3,7 +3,8 @@ require('dotenv').config();
 
 
 const mongooseKey = process.env.MONGOOSE_KEY;
-const database = `mongodb+srv://${mongooseKey}@cluster0.uivcu.mongodb.net/my_job_handler?retryWrites=true&w=majority`;
+const databaseName = process.env.DATABASE_NAME;
+const database = `mongodb+srv://${mongooseKey}@cluster0.uivcu.mongodb.net/${databaseName}?retryWrites=true&w=majority`;
 
 mongoose.connect(database, {
     useNewUrlParser: true,
